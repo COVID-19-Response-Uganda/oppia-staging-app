@@ -3,6 +3,7 @@ package UI;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import TestRules.DaggerInjectMockUITest;
 import androidx.preference.PreferenceManager;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -14,6 +15,7 @@ import org.digitalcampus.oppia.utils.storage.StorageAccessStrategy;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 
 import java.io.File;
 
@@ -21,8 +23,15 @@ import Utils.CourseUtils;
 import Utils.FileUtils;
 import database.TestDBHelper;
 
+import static org.mockito.Matchers.anyBoolean;
+import static org.mockito.Matchers.anyInt;
+import static org.mockito.Matchers.anyLong;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.when;
+
 @RunWith(AndroidJUnit4.class)
-public abstract class CourseMediaBaseTest {
+public abstract class CourseMediaBaseTest extends DaggerInjectMockUITest {
 
     protected static final String COURSE_WITH_NO_MEDIA = "Course_with_no_media.zip";
     protected static final String COURSE_WITH_MEDIA_1 = "Course_with_media_1.zip";
@@ -45,14 +54,9 @@ public abstract class CourseMediaBaseTest {
         StorageAccessStrategy storageStrategy = new ExternalStorageStrategy();
         Storage.setStorageStrategy(storageStrategy);
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString(PrefsActivity.PREF_STORAGE_OPTION, storageStrategy.getStorageType());
-        storageStrategy.updateStorageLocation(context);
-        editor.commit();
-
         CourseUtils.cleanUp();
     }
+
 
 
     @After
