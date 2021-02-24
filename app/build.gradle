@@ -18,7 +18,7 @@ android {
         versionCode 83
         versionName "7.1.6"
 
-        applicationId "ug.go.health.mobile.covid19"
+        applicationId "ug.go.health.mobile.covid19.testingapp"
         minSdkVersion 21
         targetSdkVersion 29
 
