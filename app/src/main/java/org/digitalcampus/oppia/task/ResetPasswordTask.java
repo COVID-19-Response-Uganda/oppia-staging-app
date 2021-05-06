@@ -20,9 +20,8 @@ package org.digitalcampus.oppia.task;
 import android.content.Context;
 import android.util.Log;
 
-import com.splunk.mint.Mint;
-
 import org.digitalcampus.mobile.learning.R;
+import org.digitalcampus.oppia.analytics.Analytics;
 import org.digitalcampus.oppia.api.ApiEndpoint;
 import org.digitalcampus.oppia.api.Paths;
 import org.digitalcampus.oppia.listener.SubmitEntityListener;
@@ -39,11 +38,11 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class ResetTask extends APIRequestTask<User, Object, EntityResult<User>> {
+public class ResetPasswordTask extends APIRequestTask<User, Object, EntityResult<User>> {
 
 	private SubmitEntityListener mStateListener;
 
-	public ResetTask(Context ctx, ApiEndpoint api) { super(ctx, api); }
+	public ResetPasswordTask(Context ctx, ApiEndpoint api) { super(ctx, api); }
 
     @Override
 	protected EntityResult<User> doInBackground(User... params) {
@@ -70,12 +69,12 @@ public class ResetTask extends APIRequestTask<User, Object, EntityResult<User>> 
             if (response.isSuccessful()){
                 new JSONObject(response.body().string()); //Added to check that the response is well formed
 				result.setSuccess(true);
-				result.setResultMessage(ctx.getString(R.string.reset_complete));
+				result.setResultMessage(ctx.getString(R.string.reset_password_complete));
             }
             else{
                 result.setSuccess(false);
                 if (response.code() == 400){
-					result.setResultMessage(ctx.getString(R.string.error_reset));
+					result.setResultMessage(ctx.getString(R.string.error_reset_password));
                 }
                 else{
 					result.setResultMessage(ctx.getString(R.string.error_connection));
@@ -86,7 +85,7 @@ public class ResetTask extends APIRequestTask<User, Object, EntityResult<User>> 
 			result.setSuccess(false);
 			result.setResultMessage(ctx.getString(R.string.error_connection));
 		} catch (JSONException e) {
-			Mint.logException(e);
+			Analytics.logException(e);
 			Log.d(TAG, "JSONException:", e);
 			result.setSuccess(false);
 			result.setResultMessage(ctx.getString(R.string.error_processing_response));

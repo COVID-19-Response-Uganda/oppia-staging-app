@@ -291,7 +291,9 @@
       "collection_name": "primary_places_of_work",
       "items": [
         {"id": "hospital", "value": "Hospital"},
-        {"id": "health_center", "value": "Health Center (II, III or IV)"},
+        {"id": "health_center_II", "value": "Health Center II"},
+        {"id": "health_center_III", "value": "Health Center III"},
+        {"id": "health_center_IV", "value": "Health Center IV"},
         {"id": "community_based", "value": "Community Based (Health Center I)"},
         {"id": "private_clinic_medical_center", "value": "Private Clinic or Medical Center"},
         {"id": "privately_owned_pharmacy", "value": "Privately owned pharmacy"},

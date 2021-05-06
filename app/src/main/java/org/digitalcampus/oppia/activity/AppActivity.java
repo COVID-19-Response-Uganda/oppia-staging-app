@@ -20,6 +20,7 @@ package org.digitalcampus.oppia.activity;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -49,6 +50,7 @@ import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.digitalcampus.mobile.learning.R;
+import org.digitalcampus.oppia.analytics.Analytics;
 import org.digitalcampus.oppia.application.App;
 import org.digitalcampus.oppia.application.SessionManager;
 import org.digitalcampus.oppia.di.AppComponent;
@@ -77,10 +79,24 @@ public class AppActivity extends AppCompatActivity implements APIKeyRequestListe
     @Inject
     SharedPreferences prefs;
 
+    private ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initializeDaggerBase();
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        Analytics.trackViewOnStart(this);
+    }
+
+    @Override
+    public void onStop(){
+        Analytics.trackViewOnStop(this);
+        super.onStop();
     }
 
     public AppComponent getAppComponent(){
@@ -114,6 +130,27 @@ public class AppActivity extends AppCompatActivity implements APIKeyRequestListe
 
     public SharedPreferences getPrefs() {
         return prefs;
+    }
+
+    public void showProgressDialog(String message) {
+
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.dismiss();
+            progressDialog = null;
+        }
+
+        progressDialog = new ProgressDialog(this, R.style.Oppia_AlertDialogStyle);
+        progressDialog.setMessage(message);
+        progressDialog.setCancelable(false);
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.show();
+    }
+
+    public void hideProgressDialog() {
+        if (progressDialog != null && progressDialog.isShowing()){
+            progressDialog.dismiss();
+            progressDialog = null;
+        }
     }
 
     @Override

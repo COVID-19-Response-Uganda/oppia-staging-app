@@ -20,10 +20,9 @@ package org.digitalcampus.oppia.task;
 import android.content.Context;
 import android.util.Log;
 
-import com.splunk.mint.Mint;
-
 import org.digitalcampus.mobile.learning.R;
 import org.digitalcampus.oppia.adapter.CourseInstallViewAdapter;
+import org.digitalcampus.oppia.analytics.Analytics;
 import org.digitalcampus.oppia.api.ApiEndpoint;
 import org.digitalcampus.oppia.api.Paths;
 import org.digitalcampus.oppia.utils.HTTPClientUtils;
@@ -67,11 +66,11 @@ public class CourseInfoTask extends APIRequestTask<Payload, Object, Payload> {
                 CourseInstallViewAdapter course = parseCourse(response.body().string());
                 payload.setResponseData(Collections.singletonList(course));
                 payload.setResult(true);
-                payload.setResultResponse(ctx.getString(R.string.reset_complete));
+                payload.setResultResponse(ctx.getString(R.string.reset_password_complete));
             } else {
                 payload.setResult(false);
                 if (response.code() == 400) {
-                    payload.setResultResponse(ctx.getString(R.string.error_reset));
+                    payload.setResultResponse(ctx.getString(R.string.error_reset_password));
                 } else if (response.code() == 404){
                     payload.setResultResponse(ctx.getString(R.string.open_digest_errors_course_not_found));
                 } else {
@@ -83,7 +82,7 @@ public class CourseInfoTask extends APIRequestTask<Payload, Object, Payload> {
             payload.setResult(false);
             payload.setResultResponse(ctx.getString(R.string.error_connection));
         } catch (JSONException e) {
-            Mint.logException(e);
+            Analytics.logException(e);
             Log.d(TAG, "JSONException:", e);
             payload.setResult(false);
             payload.setResultResponse(ctx.getString(R.string.error_processing_response));

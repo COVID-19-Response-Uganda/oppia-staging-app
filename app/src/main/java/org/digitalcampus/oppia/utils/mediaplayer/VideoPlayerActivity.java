@@ -32,10 +32,9 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 
-import com.splunk.mint.Mint;
-
 import org.digitalcampus.mobile.learning.R;
 import org.digitalcampus.oppia.activity.AppActivity;
+import org.digitalcampus.oppia.analytics.Analytics;
 import org.digitalcampus.oppia.gamification.GamificationServiceDelegate;
 import org.digitalcampus.oppia.model.Activity;
 import org.digitalcampus.oppia.model.Course;
@@ -91,21 +90,22 @@ public class VideoPlayerActivity extends AppActivity implements SurfaceHolder.Ca
             player.setDataSource(this, Uri.parse(Storage.getMediaPath(this) + mediaFileName));
             player.setOnPreparedListener(this);
         } catch (IllegalArgumentException e) {
-            Mint.logException(e);
+            Analytics.logException(e);
             Log.d(TAG, "IllegalArgumentException:", e);
         } catch (SecurityException e) {
-            Mint.logException(e);
+            Analytics.logException(e);
             Log.d(TAG, "SecurityException:", e);
         } catch (IllegalStateException e) {
-            Mint.logException(e);
+            Analytics.logException(e);
             Log.d(TAG, "ExceIllegalStateExceptionption:", e);
         } catch (IOException e) {
-            Mint.logException(e);
+            Analytics.logException(e);
             Log.d(TAG, "IOException:", e);
         }
     }
 
-    protected void onStart(){
+    @Override
+    public void onStart(){
         super.onStart();
         videoSurface = findViewById(R.id.videoSurface);
         endContainer = findViewById(R.id.end_container);
@@ -251,7 +251,7 @@ public class VideoPlayerActivity extends AppActivity implements SurfaceHolder.Ca
         } catch (IOException e) {
             //If the source is not available, close the activity
             Log.d(TAG, "IOException:", e);
-            Mint.logException(e);
+            Analytics.logException(e);
             player.release();
             this.finish();
 
@@ -259,7 +259,7 @@ public class VideoPlayerActivity extends AppActivity implements SurfaceHolder.Ca
             //If the player state was illegal, try to reset it again
             player.reset();
             player.prepareAsync();
-            Mint.logException(e);
+            Analytics.logException(e);
             Log.d(TAG, "IllegalStateException:", e);
         }
 

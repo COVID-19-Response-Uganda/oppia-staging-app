@@ -23,12 +23,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.splunk.mint.Mint;
-
 import org.digitalcampus.mobile.learning.R;
 import org.digitalcampus.oppia.adapter.TagsAdapter;
+import org.digitalcampus.oppia.analytics.Analytics;
 import org.digitalcampus.oppia.listener.APIRequestListener;
 import org.digitalcampus.oppia.model.Tag;
 import org.digitalcampus.oppia.model.TagRepository;
@@ -43,9 +40,10 @@ import java.util.concurrent.Callable;
 
 import javax.inject.Inject;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 public class TagSelectActivity extends AppActivity implements APIRequestListener {
 
-	private ProgressDialog pDialog;
 	private JSONObject json;
     private ArrayList<Tag> tags;
 
@@ -75,7 +73,8 @@ public class TagSelectActivity extends AppActivity implements APIRequestListener
 			Tag selectedTag = tags.get(position);
 			Intent i = new Intent(TagSelectActivity.this, DownloadActivity.class);
 			Bundle tb = new Bundle();
-			tb.putSerializable(Tag.TAG_CLASS, selectedTag);
+			tb.putInt(DownloadActivity.EXTRA_MODE, DownloadActivity.MODE_TAG_COURSES);
+			tb.putSerializable(DownloadActivity.EXTRA_TAG, selectedTag);
 			i.putExtras(tb);
 			startActivity(i);
 		});
@@ -101,10 +100,7 @@ public class TagSelectActivity extends AppActivity implements APIRequestListener
 
 	@Override
 	public void onPause(){
-		// kill any open dialogs
-		if (pDialog != null){
-			pDialog.dismiss();
-		}
+		hideProgressDialog();
 		super.onPause();
 	}
 	
@@ -120,7 +116,7 @@ public class TagSelectActivity extends AppActivity implements APIRequestListener
 
             this.json = new JSONObject(savedInstanceState.getString("json"));
         } catch (Exception e) {
-            Mint.logException(e);
+            Analytics.logException(e);
             Log.d(TAG, "Error restoring saved state: ", e);
         }
 	}
@@ -136,12 +132,7 @@ public class TagSelectActivity extends AppActivity implements APIRequestListener
 	}
 	
 	private void getTagList() {
-		// show progress dialog
-		pDialog = new ProgressDialog(this, R.style.Oppia_AlertDialogStyle);
-		pDialog.setTitle(R.string.loading);
-		pDialog.setMessage(getString(R.string.loading));
-		pDialog.setCancelable(true);
-		pDialog.show();
+		showProgressDialog(getString(R.string.loading));
 
 		tagRepository.getTagList(this);
 	}
@@ -155,16 +146,15 @@ public class TagSelectActivity extends AppActivity implements APIRequestListener
             findViewById(R.id.empty_state).setVisibility((tags.isEmpty()) ? View.VISIBLE : View.GONE);
 
 		} catch (JSONException e) {
-            Mint.logException(e);
+            Analytics.logException(e);
             Log.d(TAG, "Error refreshing tag list: ", e);
 		}
 		
 	}
 	
 	public void apiRequestComplete(Payload response) {
-		// close dialog and process results
-		pDialog.dismiss();
-
+		hideProgressDialog();
+		
         Callable<Boolean> finishActivity = () -> {
 			TagSelectActivity.this.finish();
 			return true;
@@ -175,7 +165,7 @@ public class TagSelectActivity extends AppActivity implements APIRequestListener
 				json = new JSONObject(response.getResultResponse());
 				refreshTagList();
 			} catch (JSONException e) {
-				Mint.logException(e);
+				Analytics.logException(e);
                 Log.d(TAG, "Error conencting to server: ", e);
 				UIUtils.showAlert(this, R.string.loading, R.string.error_connection, finishActivity);
 			}
