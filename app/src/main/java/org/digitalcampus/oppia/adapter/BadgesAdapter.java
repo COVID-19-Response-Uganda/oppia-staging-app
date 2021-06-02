@@ -2,6 +2,8 @@ package org.digitalcampus.oppia.adapter;
 
 
 import android.content.Context;
+import android.service.quicksettings.TileService;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.digitalcampus.mobile.learning.R;
+import org.digitalcampus.mobile.learning.databinding.RowFragmentBadgesListBinding;
 import org.digitalcampus.oppia.model.Badge;
 
 import java.util.List;
@@ -19,6 +22,7 @@ public class BadgesAdapter extends RecyclerView.Adapter<BadgesAdapter.BadgesView
 
     private List<Badge> badges;
     private Context context;
+    private OnItemClickListener onItemClickListener;
 
     public BadgesAdapter(Context context, List<Badge> badges) {
         this.context = context;
@@ -38,10 +42,12 @@ public class BadgesAdapter extends RecyclerView.Adapter<BadgesAdapter.BadgesView
     @Override
     public void onBindViewHolder(final BadgesViewHolder viewHolder, final int position) {
 
-        final Badge b = getItemAtPosition(position);
+        final Badge badge = getItemAtPosition(position);
 
-        viewHolder.badgeDescription.setText(b.getDescription());
-        viewHolder.badgeDate.setText(b.getDateAsString());
+        viewHolder.binding.badgesDescription.setText(badge.getDescription());
+        viewHolder.binding.badgesDate.setText(badge.getDateAsString());
+        viewHolder.binding.btnDownloadCertificate.setVisibility(TextUtils.isEmpty(badge.getCertificatePdf())
+                ? View.INVISIBLE : View.VISIBLE);
 
     }
 
@@ -57,20 +63,29 @@ public class BadgesAdapter extends RecyclerView.Adapter<BadgesAdapter.BadgesView
 
     public class BadgesViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView badgeDescription;
-        private TextView badgeDate;
+        private final RowFragmentBadgesListBinding binding;
 
         public BadgesViewHolder(View itemView) {
 
             super(itemView);
 
-            badgeDescription = itemView.findViewById(R.id.badges_description);
-            badgeDate = itemView.findViewById(R.id.badges_date);
+            binding = RowFragmentBadgesListBinding.bind(itemView);
+
+            binding.btnDownloadCertificate.setOnClickListener(v -> {
+                if (onItemClickListener != null) {
+                    onItemClickListener.onDownloadCertificateButtonClick(getAdapterPosition());
+                }
+            });
+
         }
     }
 
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.onItemClickListener = listener;
+    }
+
     public interface OnItemClickListener {
-        void onItemClick(View view, int position);
+        void onDownloadCertificateButtonClick(int position);
     }
 }
 
