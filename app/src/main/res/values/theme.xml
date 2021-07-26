@@ -7,8 +7,14 @@
     <color name="theme_secondary">@color/cha_emerald_dark</color>
     <color name="theme_secondary_light">@color/cha_emerald</color>
 
-    <!-- Drawables for app icon and course default image -->
+
+    <color name="default_text_color">@color/black</color>
+
+
+    <!-- launcher icon drawable -->
     <item name="app_icon" type="drawable">@drawable/dc_moh_logo</item>
+    <!-- Drawables for brand icon and course default image -->
+    <item name="brand_icon" type="drawable">@drawable/dc_moh_logo</item>
     <item name="course_icon_placeholder" type="drawable">@drawable/dc_moh_logo</item>
 
     <!-- Color used for dropdown menus and list tints, it is "theme_secondary_light" with transparency -->
@@ -20,16 +26,26 @@
 
     <!-- Toolbar -->
     <color name="toolbar_bg_color">@color/black</color>
+    <color name="toolbar_text_color">@color/white</color>
     <color name="toolbar_icon_color">@color/white</color>
     <color name="statusbar_color">@color/theme_primary</color>
 
+    <!-- Subtitle bar -->
+    <color name="subtitle_bar_bg_color">@color/theme_secondary_light</color>
+    <color name="subtitle_bar_text_color">@color/text_dark</color>
+    <color name="subtitle_bar_icon_color">@color/text_dark</color>
 
-    <color name="drawer_bg">@color/black</color>
-    <color name="drawer_text">@color/text_light</color>
-    <color name="drawer_subtitle">@color/theme_primary</color>
-    <color name="drawer_icontint">@color/cha_light_purple</color>
-    <color name="drawer_divider">@color/grey_dark</color>
+    <!-- Drawer -->
+    <color name="drawer_bg">@color/background_light</color>
+    <color name="drawer_text">@color/text_dark</color>
+    <color name="drawer_subtitle">@color/theme_secondary</color>
+    <color name="drawer_icontint">@color/default_icon_foreground</color>
+    <color name="drawer_divider">@color/highlight_separator</color>
 
+    <!-- Register steps indicators -->
+    <color name="register_steps_indicator_circleColor">@color/theme_primary</color>
+    <color name="register_steps_indicator_doneColor">@color/theme_secondary</color>
+    <color name="register_steps_indicator_lineColor">@color/theme_secondary</color>
 
     <!-- TabLayout and filter tabs -->
     <color name="tab_bg_color">#e0dde2</color>
@@ -43,9 +59,7 @@
     <color name="listitem_action_item_tint">@color/quiz_navigation_button</color>
     <color name="design_snackbar_background_color" tools:override="true">@color/theme_primary</color>
     <color name="gamification_snackbar_gradient_start">@color/theme_secondary_light</color>
-    <color name="gamification_snackbar_gradient_end">@color/theme_secondary</color>
-    <color name="subtitle_bar">@color/theme_secondary_light</color>
-
+    <color name="gamification_snackbar_gradient_end">@color/theme_primary</color>
     <color name="points_badge">@color/cha_emerald_dark</color>
 
     <color name="quiz_attempted">@color/theme_secondary</color>

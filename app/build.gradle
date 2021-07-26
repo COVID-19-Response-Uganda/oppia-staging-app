@@ -10,8 +10,8 @@ repositories {
     maven { url "https://jitpack.io" }
 }
 
-def version_code = 88
-def version_name = "7.2.2"
+def version_code = 89
+def version_name = "7.2.3"
 
 android {
     compileSdkVersion 30
@@ -22,7 +22,7 @@ android {
 
         applicationId "ug.go.health.mobile.covid19.testingapp"
         minSdkVersion 21
-        targetSdkVersion 30
+        targetSdkVersion 29
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         // The following argument makes the Android Test Orchestrator run its
@@ -83,6 +83,8 @@ android {
             buildConfigField "String", "COUNTLY_SERVER_URL", "\"" + runtimeProps.getProperty('COUNTLY_SERVER_URL','') + "\""
 
             buildConfigField "boolean", "ADMIN_PROTECT_SETTINGS", runtimeProps['ADMIN_PROTECT_SETTINGS']
+            buildConfigField "boolean", "ADMIN_PROTECT_ADVANCED_SETTINGS", runtimeProps['ADMIN_PROTECT_ADVANCED_SETTINGS']
+            buildConfigField "boolean", "ADMIN_PROTECT_SERVER", runtimeProps['ADMIN_PROTECT_SERVER']
             buildConfigField "boolean", "ADMIN_PROTECT_ACTIVITY_SYNC", runtimeProps['ADMIN_PROTECT_ACTIVITY_SYNC']
             buildConfigField "boolean", "ADMIN_PROTECT_ACTIVITY_EXPORT", runtimeProps['ADMIN_PROTECT_ACTIVITY_EXPORT']
             buildConfigField "boolean", "ADMIN_PROTECT_COURSE_DELETE", runtimeProps['ADMIN_PROTECT_COURSE_DELETE']

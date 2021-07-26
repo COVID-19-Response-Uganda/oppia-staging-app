@@ -10,9 +10,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:paddingLeft="@dimen/padding_medium"
+        android:paddingStart="@dimen/padding_medium"
         android:text="@string/bluetooth.select_device"
-        android:textAppearance="@style/Oppia.ActionBar.TitleTextStyle"
+        android:textAppearance="@style/CourseTitle"
+        android:textStyle="bold"
         android:theme="@style/Header" />
 
 
@@ -21,12 +22,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/stroke"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingStart="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/padding_medium"
-        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingEnd="@dimen/activity_horizontal_margin"
         android:paddingBottom="@dimen/padding_medium"
         android:text="@string/paired_devices"
-        android:visibility="gone" />
+        android:visibility="gone"
+        android:textColor="@color/text_grey"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_paired_devices"
@@ -41,12 +43,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/stroke"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingStart="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/padding_medium"
-        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingEnd="@dimen/activity_horizontal_margin"
         android:paddingBottom="@dimen/padding_medium"
         android:text="@string/other_devices"
-        android:visibility="gone" />
+        android:visibility="gone"
+        android:textColor="@color/text_grey"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_new_devices"
@@ -79,9 +82,10 @@
             android:id="@+id/textView22"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/padding_medium"
+            android:layout_marginStart="@dimen/padding_medium"
             android:layout_weight="0"
-            android:text="@string/bluetooth_device_scanning" />
+            android:text="@string/bluetooth_device_scanning"
+            android:textColor="@color/text_grey"/>
     </LinearLayout>
 
     <Button
