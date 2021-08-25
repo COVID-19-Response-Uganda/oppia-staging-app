@@ -24,6 +24,7 @@ import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AlertDialog;
@@ -303,5 +304,11 @@ public class RegisterFragment extends AppFragment implements RegisterTask.Regist
 		RegisterTask rt = new RegisterTask(super.getActivity(), apiEndpoint);
 		rt.setRegisterListener(this);
 		rt.execute(user);
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 	}
 }

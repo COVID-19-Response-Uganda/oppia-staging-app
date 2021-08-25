@@ -19,7 +19,7 @@
             android:background="@drawable/bg_toolbar"
             android:drawableTop="@drawable/drawer_moh_header"
             android:gravity="center"
-            android:paddingTop="@dimen/course_icon_size"
+            android:paddingTop="40dp"
             android:paddingBottom="@dimen/padding_large"
             android:text="@string/app_name"
             android:textAppearance="@style/SectionHeader"
@@ -102,7 +102,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginTop="@dimen/padding_large"
+                android:layout_marginTop="@dimen/padding_medium"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:gravity="center"
                 android:text="@string/login_dont_have_account" />

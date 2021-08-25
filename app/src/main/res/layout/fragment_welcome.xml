@@ -27,17 +27,17 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="@dimen/activity_vertical_margin"
                 android:layout_gravity="center"
-                android:paddingRight="2dp"
-                app:srcCompat="@drawable/dc_logo"/>
+                android:paddingRight="0dp"
+                app:srcCompat="@drawable/dc_lmh_logo"/>
             <ImageView
                 android:id="@+id/imageViewLMH"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:layout_marginRight="5dp"
+                android:layout_marginRight="0dp"
                 android:layout_marginBottom="@dimen/activity_vertical_margin"
                 android:paddingRight="2dp"
-                app:srcCompat="@drawable/dc_moh_logo"
+                app:srcCompat="@drawable/dc_moh_logo2"
                  />
 
             <ImageView
@@ -69,7 +69,7 @@
             style="@style/NormalTextDark"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="10dp"
             android:gravity="center"
             android:text="@string/fragment_welcome_desc"/>
 

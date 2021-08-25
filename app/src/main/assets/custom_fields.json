@@ -122,7 +122,7 @@
       "collection_name": "regions",
       "items": [
         {"id": "central", "value": "Central"},
-        {"id": "western", "value": "western"},
+        {"id": "western", "value": "Western"},
         {"id": "eastern", "value": "Eastern"},
         {"id": "northern", "value": "Northern"},
         {"id": "other_region", "value": "Outside Uganda (Specify Country)"}
