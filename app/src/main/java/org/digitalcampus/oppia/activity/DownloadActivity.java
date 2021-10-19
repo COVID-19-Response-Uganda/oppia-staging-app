@@ -17,8 +17,11 @@
 
 package org.digitalcampus.oppia.activity;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 
 import android.text.TextUtils;
@@ -28,6 +31,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import org.digitalcampus.mobile.learning.R;
 import org.digitalcampus.mobile.learning.databinding.ActivityDownloadBinding;
@@ -107,10 +113,22 @@ public class DownloadActivity extends AppActivity implements APIRequestListener,
         }
 
         mode = bundle.getInt(EXTRA_MODE);
-
+        requestAppPermissions();
         setUpRecyclerView();
 
         setUpScreen(mode, bundle);
+    }
+
+    private void requestAppPermissions() {
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            boolean hasPermission = (ContextCompat.checkSelfPermission(getBaseContext(),
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
+            if (!hasPermission) {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        102);
+            }
+        }
     }
 
     private void setUpScreen(int mode, Bundle bundle) {
