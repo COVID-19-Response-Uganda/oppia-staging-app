@@ -24,6 +24,7 @@ import java.io.Serializable;
 import org.digitalcampus.mobile.quiz.Quiz;
 import org.digitalcampus.mobile.quiz.model.QuizQuestion;
 import org.digitalcampus.mobile.quiz.model.Response;
+import org.digitalcampus.oppia.utils.UIUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -44,15 +45,20 @@ public class MultiSelect extends QuizQuestion implements Serializable {
             for(String ur: userResponses){
                 if (r.getTitle(lang).equals(ur) && r.getScore() == 0){
                     total = 0;
+                    Log.d(TAG, "Marking as incorrect");
                 }
             }
         }
+        Log.d(TAG,"Score for question: " + total);
+
         int maxscore = Integer.parseInt(this.getProp(Quiz.JSON_PROPERTY_MAXSCORE));
+        Log.d(TAG,"Max score for question: " + maxscore);
         if (total > maxscore){
             userscore = maxscore;
         } else {
             userscore = total;
         }
+        Log.d(TAG, "User score for question: " + userscore);
     }
 
     private float setFeedback(String lang){
@@ -60,13 +66,17 @@ public class MultiSelect extends QuizQuestion implements Serializable {
         StringBuilder questionFeedback = new StringBuilder();
         for (Response r : responseOptions){
             for (String ur : userResponses) {
-                if (ur.equals(r.getTitle(lang))) {
+                Log.d(TAG, "user selected: " + ur);
+                String cleanResponse = UIUtils.getFromHtmlAndTrim(r.getTitle(lang)).toString();
+                Log.d(TAG, "checking against response: " + cleanResponse);
+                if (ur.equals(cleanResponse)) {
+                    Log.d(TAG, "setting feedback for: " + r.getTitle(lang));
                     total += r.getScore();
                     if(r.getFeedback(lang) != null && !(r.getFeedback(lang).equals(""))){
-                        questionFeedback.append(ur);
-                        questionFeedback.append(": ");
+                        questionFeedback.append("<strong>" + ur);
+                        questionFeedback.append(":</strong> ");
                         questionFeedback.append(r.getFeedback(lang));
-                        questionFeedback.append("\n\n");
+                        questionFeedback.append("<br>");
                     }
                 }
             }

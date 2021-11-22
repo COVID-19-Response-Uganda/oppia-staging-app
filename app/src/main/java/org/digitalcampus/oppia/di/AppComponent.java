@@ -2,6 +2,7 @@ package org.digitalcampus.oppia.di;
 
 import org.digitalcampus.oppia.activity.ActivityLogActivity;
 import org.digitalcampus.oppia.activity.AppActivity;
+import org.digitalcampus.oppia.activity.ChangePasswordActivity;
 import org.digitalcampus.oppia.activity.CourseIndexActivity;
 import org.digitalcampus.oppia.activity.CourseQuizAttemptsActivity;
 import org.digitalcampus.oppia.activity.DownloadActivity;
@@ -27,6 +28,7 @@ import org.digitalcampus.oppia.fragments.RegisterFragment;
 import org.digitalcampus.oppia.fragments.RememberUsernameFragment;
 import org.digitalcampus.oppia.fragments.ResetPasswordFragment;
 import org.digitalcampus.oppia.fragments.prefs.AdvancedPrefsFragment;
+import org.digitalcampus.oppia.fragments.prefs.NotificationsPrefsFragment;
 import org.digitalcampus.oppia.model.User;
 import org.digitalcampus.oppia.service.CoursesChecksWorkerManager;
 import org.digitalcampus.oppia.service.CoursesCompletionReminderWorkerManager;
@@ -62,8 +64,10 @@ public interface AppComponent {
     void inject(GlobalQuizAttemptsFragment fragment);
     void inject(RegisterFragment fragment);
     void inject(App app);
+    void inject(ChangePasswordActivity activity);
 
     void inject(AdvancedPrefsFragment advancedPrefsFragment);
+    void inject(NotificationsPrefsFragment notificationsPrefsFragment);
 
     void inject(AnswerWidget fragment);
     void inject(EditProfileActivity activity);
@@ -77,4 +81,5 @@ public interface AppComponent {
     User getUser();
 
     void inject(DBDataMigration dbDataMigration);
+
 }

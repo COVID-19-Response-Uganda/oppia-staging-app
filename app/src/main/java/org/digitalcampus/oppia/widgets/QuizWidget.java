@@ -211,7 +211,7 @@ public class QuizWidget extends AnswerWidget {
     public boolean getActivityCompleted() {
         int passThreshold;
         Log.d(TAG, "Threshold:" + quiz.getPassThreshold() );
-        if (quiz.getPassThreshold() != 0){
+        if (quiz.getPassThreshold() >= 0){
             passThreshold = quiz.getPassThreshold();
         } else {
             passThreshold = Quiz.QUIZ_DEFAULT_PASS_THRESHOLD;
@@ -241,7 +241,7 @@ public class QuizWidget extends AnswerWidget {
                 qf.setQuestionText(q.getTitle(prefLang));
                 qf.setUserResponse(q.getUserResponses());
                 String feedbackText = q.getFeedback(prefLang);
-                qf.setFeedbackText(feedbackText);
+                qf.setFeedbackText(feedbackText.replaceAll("&amp;gt;","<"));
                 quizAnswersFeedback.add(qf);
             }
         }

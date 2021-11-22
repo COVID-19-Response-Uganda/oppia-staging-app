@@ -122,8 +122,12 @@ public class AppActivity extends AppCompatActivity implements APIKeyRequestListe
     }
 
     public void alert(int stringId) {
+        alert(getString(stringId));
+    }
+
+    public void alert(String message) {
         new AlertDialog.Builder(this)
-                .setMessage(stringId)
+                .setMessage(message)
                 .setNegativeButton(R.string.close, null)
                 .show();
     }
@@ -288,6 +292,9 @@ public class AppActivity extends AppCompatActivity implements APIKeyRequestListe
     public void onGamificationEvent(String message, int points) {
         boolean notifEnabled = prefs.getBoolean(PrefsActivity.PREF_SHOW_GAMIFICATION_EVENTS, true);
         boolean scoringEnabled = prefs.getBoolean(PrefsActivity.PREF_SCORING_ENABLED, true);
+
+        Log.d(TAG, "gamifEvent:" + message);
+
         if (notifEnabled && scoringEnabled && points > 0) {
 
             final View rootView = ((ViewGroup) findViewById(android.R.id.content)).getChildAt(0);
