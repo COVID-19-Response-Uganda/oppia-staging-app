@@ -84,6 +84,8 @@ public class MainActivity extends AppActivity implements BottomNavigationView.On
 
         saveServerBadgeAwardCriteria();
 
+        binding.drawerVersionName.setText(getString(R.string.version, BuildConfig.VERSION_NAME));
+
     }
 
     private void saveServerBadgeAwardCriteria() {
