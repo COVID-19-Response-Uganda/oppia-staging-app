@@ -45,13 +45,15 @@
             app:stpi_stepCount="3" />
     </FrameLayout>
 
+
     <ScrollView
         android:id="@+id/register_form"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/form_bottom"
         android:layout_below="@+id/frame_stepper_indicator"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginTop="73dp"
+        android:layout_marginBottom="-49dp"
         android:fadeScrollbars="false"
         android:scrollbarSize="30dp">
 
@@ -182,7 +184,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="15sp"
                         app:ccp_autoDetectCountry="true"
-                        app:ccp_countryPreference="UG"/>
+                        app:ccp_countryPreference="UG" />
                 </LinearLayout>
 
                 <EditText
@@ -238,7 +240,6 @@
         </LinearLayout>
 
     </ScrollView>
-
 
     <LinearLayout
         android:id="@+id/form_bottom"
