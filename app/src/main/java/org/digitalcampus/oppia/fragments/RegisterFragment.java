@@ -27,6 +27,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 
 import org.digitalcampus.mobile.learning.BuildConfig;
@@ -56,13 +57,9 @@ public class RegisterFragment extends AppFragment implements RegisterTask.Regist
 
 	private HashMap<String, ValidableField> fields = new HashMap<>();
 
-	private List<CustomField> profileCustomFields;
-
 	private CustomFieldsUIManager fieldsManager;
 	private SteppedFormUIManager stepsManager;
-
 	private FragmentRegisterBinding binding;
-
 
 	@Inject
 	CustomFieldsRepository customFieldsRepo;
@@ -80,7 +77,7 @@ public class RegisterFragment extends AppFragment implements RegisterTask.Regist
 	}
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+	public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		binding = FragmentRegisterBinding.inflate(inflater, container, false);
 
 		binding.registerFormEmailField.setCustomValidator(field -> {
@@ -150,7 +147,7 @@ public class RegisterFragment extends AppFragment implements RegisterTask.Regist
 			}
 		}
 
-		profileCustomFields = customFieldsRepo.getAll(getContext());
+		List<CustomField> profileCustomFields = customFieldsRepo.getAll(getContext());
 		List<CustomField.RegisterFormStep> registerSteps = customFieldsRepo.getRegisterSteps(getContext());
 		fieldsManager = new CustomFieldsUIManager(this.getActivity(), fields, profileCustomFields);
 		fieldsManager.populateAndInitializeFields(binding.customFieldsContainer);
@@ -184,9 +181,13 @@ public class RegisterFragment extends AppFragment implements RegisterTask.Regist
 	}
 
 	private void nextStep(){
+
+		UIUtils.hideSoftKeyboard(getActivity());
+
 		if (stepsManager.nextStep()){
 			binding.prevBtn.setVisibility(View.VISIBLE);
 		}
+
 		if (stepsManager.isLastStep()){
 			binding.nextBtn.setVisibility(View.GONE);
 			binding.registerBtn.setVisibility(View.VISIBLE);
@@ -195,9 +196,13 @@ public class RegisterFragment extends AppFragment implements RegisterTask.Regist
 	}
 
 	private void prevStep(){
+
+		UIUtils.hideSoftKeyboard(getActivity());
+
 		if (stepsManager.prevStep()){
 			binding.prevBtn.setVisibility(View.INVISIBLE);
 		}
+
 		binding.registerBtn.setVisibility(View.GONE);
 		binding.nextBtn.setVisibility(View.VISIBLE);
 	}
